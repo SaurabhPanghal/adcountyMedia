@@ -1,24 +1,39 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useMemo, useState } from "react";
+import { Navigate, Route, Routes } from "react-router-dom";
+import Home from "./components/pages/home";
+import Login from "./components/pages/login";
+import { AuthContext } from "./components/services/context";
+
 
 function App() {
+  const [user, setUser] = useState(null);
+
+  const authContext = useMemo(
+    () => ({
+      signIn: () => (
+        setUser("user")
+      ),
+      signOut: () => (
+        setUser(null)
+      ),
+    }), []
+  );
+
+  const checkauth = (children) => {
+    if (user !== null) {
+      return children
+    } else {
+      return <Navigate replace to="/" />
+    }
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <AuthContext.Provider value={authContext}>
+      <Routes>
+        <Route path="/" element={<Login />} />
+        <Route exact path="/home" element={checkauth(<Home />)} />
+      </Routes>
+    </AuthContext.Provider>
   );
 }
 

@@ -1,0 +1,29 @@
+.main {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.main form {
+    padding: 30px;
+    border-radius: 10px;
+    border: 1px solid black;
+    border-radius: 15px;
+}
+
+.main h1 {
+    margin-bottom: 50px;
+}
+
+.heading {
+    font-size: 25px;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.pagination {
+    justify-content: center;
+}
